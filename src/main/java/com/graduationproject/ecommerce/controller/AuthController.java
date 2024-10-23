@@ -1,5 +1,6 @@
 package com.graduationproject.ecommerce.controller;
 
+import com.graduationproject.ecommerce.dto.request.login.UserLoginRequest;
 import com.graduationproject.ecommerce.dto.request.register.AdminRegisterRequest;
 import com.graduationproject.ecommerce.dto.request.register.CustomerRegisterRequest;
 import com.graduationproject.ecommerce.dto.request.register.StoreOwnerRegisterRequest;
@@ -29,5 +30,10 @@ public class AuthController {
     @PostMapping("store-owner-register")
     public void storeOwnerRegister(@RequestBody StoreOwnerRegisterRequest storeOwnerRegisterRequest) {
         authService.saveStoreOwner(storeOwnerRegisterRequest);
+    }
+    
+    @PostMapping("login")
+    public String login(@RequestBody UserLoginRequest userLoginRequest) {
+        return authService.login(userLoginRequest);
     }
 }

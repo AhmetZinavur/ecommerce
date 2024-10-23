@@ -1,8 +1,10 @@
 package com.graduationproject.ecommerce.service;
 
+import com.graduationproject.ecommerce.dto.request.login.UserLoginRequest;
 import com.graduationproject.ecommerce.dto.request.register.AdminRegisterRequest;
 import com.graduationproject.ecommerce.dto.request.register.CustomerRegisterRequest;
 import com.graduationproject.ecommerce.dto.request.register.StoreOwnerRegisterRequest;
+import com.graduationproject.ecommerce.dto.response.UserResponse;
 import com.graduationproject.ecommerce.dto.response.UserSaveResponse;
 import com.graduationproject.ecommerce.entity.Auth;
 import com.graduationproject.ecommerce.entity.enums.Role;
@@ -12,6 +14,7 @@ import com.graduationproject.ecommerce.mapper.UserMapper;
 import org.springframework.stereotype.Service;
 
 import com.graduationproject.ecommerce.repository.AuthRepository;
+import com.graduationproject.ecommerce.util.JWTManager;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -20,6 +23,7 @@ public class AuthService {
 
     private final AuthRepository authRepository;
     private final UserService userService;
+    private final JWTManager jWTManager;
 
     public void saveAdmin(AdminRegisterRequest adminRegisterRequest) {
         if(userService.isUserExist(adminRegisterRequest.getUserName(), adminRegisterRequest.getEmail())) {
@@ -58,6 +62,12 @@ public class AuthService {
                 .user(UserMapper.INSTANCE.userSaveResponseToUser(user))
                 .build()
         );
+    }
+    
+    public String login(UserLoginRequest userLoginRequest) {
+        UserResponse userResponse = userService.checkUserAndUserPassword(userLoginRequest);
+        
+        return jWTManager.generateToken(userResponse.getId());
     }
 
 }
