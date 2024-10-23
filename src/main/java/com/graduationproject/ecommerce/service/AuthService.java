@@ -5,7 +5,6 @@ import com.graduationproject.ecommerce.dto.request.register.CustomerRegisterRequ
 import com.graduationproject.ecommerce.dto.request.register.StoreOwnerRegisterRequest;
 import com.graduationproject.ecommerce.dto.response.UserSaveResponse;
 import com.graduationproject.ecommerce.entity.Auth;
-import com.graduationproject.ecommerce.entity.User;
 import com.graduationproject.ecommerce.entity.enums.Role;
 import com.graduationproject.ecommerce.exception.customexception.CustomeException;
 import com.graduationproject.ecommerce.exception.customexception.SuchUserAlreadyExistsException;
@@ -27,7 +26,7 @@ public class AuthService {
             throw new SuchUserAlreadyExistsException(CustomeException.SUCH_USER_ALREADY_EXISTS_EXCEPTION);
         }
         
-        UserSaveResponse user = userService.save(UserMapper.INSTANCE.adminRegisterRequestToUser(adminRegisterRequest));
+        UserSaveResponse user = userService.save(UserMapper.INSTANCE.adminRegisterRequestToUser(adminRegisterRequest));        
         authRepository.save(Auth.builder()
                 .role(Role.ADMIN)
                 .user(UserMapper.INSTANCE.userSaveResponseToUser(user))

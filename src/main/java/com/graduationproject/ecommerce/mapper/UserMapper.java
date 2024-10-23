@@ -3,6 +3,7 @@ package com.graduationproject.ecommerce.mapper;
 import com.graduationproject.ecommerce.dto.request.register.AdminRegisterRequest;
 import com.graduationproject.ecommerce.dto.request.register.CustomerRegisterRequest;
 import com.graduationproject.ecommerce.dto.request.register.StoreOwnerRegisterRequest;
+import com.graduationproject.ecommerce.dto.request.update.UserUpdateRequest;
 import com.graduationproject.ecommerce.dto.response.UserResponse;
 import com.graduationproject.ecommerce.dto.response.UserSaveResponse;
 import com.graduationproject.ecommerce.entity.User;
@@ -22,4 +23,6 @@ public interface UserMapper {
     User userSaveResponseToUser(UserSaveResponse userSaveResponse);
     
     UserResponse userToUserResponse(User user);
+    
+    User userUpdateRequestToUser(UserUpdateRequest userUpdateRequest);
 }

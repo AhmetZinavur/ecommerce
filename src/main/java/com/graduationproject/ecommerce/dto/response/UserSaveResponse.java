@@ -7,4 +7,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserSaveResponse {
     private Long id;
+    private String accountCreationDate;
+    private String accountUpdateDate;
 }

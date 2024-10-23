@@ -36,7 +36,7 @@ public class User {
     private String email;
     private String userName;
     private String password;
-    private final LocalDateTime accountCreationDate = LocalDateTime.now();
+    private LocalDateTime accountCreationDate;
     private LocalDateTime accountUpdateDate;
 
     @OneToOne(mappedBy = "user" ,cascade = CascadeType.ALL)
