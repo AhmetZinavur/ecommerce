@@ -8,6 +8,7 @@ import com.graduationproject.ecommerce.exception.customexception.NoProductFoundT
 import com.graduationproject.ecommerce.exception.customexception.NoSuchProductExistException;
 import com.graduationproject.ecommerce.exception.customexception.NoSuchStoreExistsException;
 import com.graduationproject.ecommerce.exception.customexception.NoSuchUserExistsException;
+import com.graduationproject.ecommerce.exception.customexception.ProductDoesNotBelongToYourStore;
 import com.graduationproject.ecommerce.exception.customexception.SuchStoreAlreadyExistsException;
 import com.graduationproject.ecommerce.exception.customexception.SuchUserAlreadyExistsException;
 import com.graduationproject.ecommerce.exception.customexception.UnauthorizedAccessException;
@@ -93,5 +94,11 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public ExceptionResponse noSuchProductExistException(NoSuchProductExistException exception) {
         return response(exception.customeException);
-    }      
+    }
+    
+    @ExceptionHandler(ProductDoesNotBelongToYourStore.class)
+    @ResponseBody
+    public ExceptionResponse productDoesNotBelongToYourStore(ProductDoesNotBelongToYourStore ProductDoesNotBelongToYourStore) {
+        return response(CustomeException.PRODUCT_DOES_NOT_BELONG_TO_YOUR_STORE_EXCEPTION);
+    }
 }

@@ -26,12 +26,19 @@ public class UserService {
         return UserMapper.INSTANCE.userToUserSaveResponse(userRepository.save(user));
     }
     
-    public UserResponse findById(Long id) {
+    protected UserResponse findById(Long id) {
         User user = userRepository.findById(id).orElseThrow(
                 () -> new NoSuchUserExistsException(CustomeException.NO_SUCH_USER_EXISTS_EXCEPTION)
         );
         
-        return UserMapper.INSTANCE.userToUserResponse(user);
+        return UserResponse.builder()
+                .id(user.getId())
+                .name(user.getName())
+                .lastName(user.getLastName())
+                .userName(user.getUserName())
+                .password(user.getPassword())
+                .role(user.getAuth().getRole().toString())
+                .build();
     }
     
     protected boolean isUserExist(String userName, String email) {

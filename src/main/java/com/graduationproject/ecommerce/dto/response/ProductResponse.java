@@ -4,16 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserResponse {
+public class ProductResponse {
     private Long id;
-    private String name;
-    private String lastName;
-    private String userName;
-    private String password;
-    private String role;
+    private String productName;
+    private Integer productQuantity;
+    private Double productPrice;
+    private Long storeId;
 }
