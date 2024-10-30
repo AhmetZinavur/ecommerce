@@ -3,6 +3,7 @@ package com.graduationproject.ecommerce.service;
 import com.graduationproject.ecommerce.dto.request.build.AddNewProductRequest;
 import com.graduationproject.ecommerce.dto.request.build.BuildStoreRequest;
 import com.graduationproject.ecommerce.dto.request.update.ProductUpdateRequest;
+import com.graduationproject.ecommerce.dto.request.update.UpdateOrderStatusRequest;
 import com.graduationproject.ecommerce.dto.request.update.UpdateStoreRequest;
 import com.graduationproject.ecommerce.dto.response.ProductResponse;
 import com.graduationproject.ecommerce.dto.response.UserResponse;
@@ -21,7 +22,6 @@ import org.springframework.stereotype.Service;
 import com.graduationproject.ecommerce.repository.StoreRepository;
 import com.graduationproject.ecommerce.util.JWTManager;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
@@ -143,6 +143,10 @@ public class StoreService {
             throw new ProductDoesNotBelongToYourStore(CustomeException.PRODUCT_DOES_NOT_BELONG_TO_YOUR_STORE_EXCEPTION);
         }
         productService.delete(id);
+    }
+    
+    public void updateOrderStatus(String token, UpdateOrderStatusRequest updateOrderStatusRequest) {
+        
     }
 
     private List<ProductResponse> getMyOwnStoreProduct(String token) {

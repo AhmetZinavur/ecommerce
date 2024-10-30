@@ -3,6 +3,7 @@ package com.graduationproject.ecommerce.controller;
 import com.graduationproject.ecommerce.dto.request.build.AddNewProductRequest;
 import com.graduationproject.ecommerce.dto.request.build.BuildStoreRequest;
 import com.graduationproject.ecommerce.dto.request.update.ProductUpdateRequest;
+import com.graduationproject.ecommerce.dto.request.update.UpdateOrderStatusRequest;
 import com.graduationproject.ecommerce.dto.response.ProductResponse;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,6 +38,11 @@ public class StoreController {
     @PostMapping("add-product/{token}")
     public void saveProduct(@PathVariable("token") String token, AddNewProductRequest addNewProductRequest) {
         storeService.saveProduct(token, addNewProductRequest);
+    }
+    
+    @PostMapping("update-order-status/{token}")
+    public void updateOrderStatus(@PathVariable("token") String token, @RequestBody UpdateOrderStatusRequest updateOrderStatusRequest) {
+        storeService.updateOrderStatus(token, updateOrderStatusRequest);
     }
 
     @GetMapping("find-product-by/{id}")
