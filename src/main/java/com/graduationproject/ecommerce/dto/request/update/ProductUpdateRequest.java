@@ -8,6 +8,6 @@ import lombok.RequiredArgsConstructor;
 public class ProductUpdateRequest {
     private Long id;
     private String productName;
-    private Integer productQuantity;
+    private Integer stockQuantity;
     private Double productPrice;
 }

@@ -15,9 +15,13 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -37,13 +41,19 @@ public class Order {
     private Long id;
     private Double orderPrice;
     private LocalDateTime orderDateTime;
+    
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
-    
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+   
+    @ManyToMany
+    @JoinTable(
+        name = "order_product",
+        joinColumns = @JoinColumn(name = "order_id"),
+        inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
     @JsonManagedReference
-    private List<ShoppingCart> shoppingCarts;
-
+    private Set<Product> products;
+    
     @ManyToOne
     @JsonBackReference
     private User user;

@@ -1,5 +1,6 @@
 package com.graduationproject.ecommerce.service;
 
+import com.graduationproject.ecommerce.dto.request.OrderRequest;
 import com.graduationproject.ecommerce.dto.request.login.UserLoginRequest;
 import com.graduationproject.ecommerce.dto.request.update.UserUpdateRequest;
 import com.graduationproject.ecommerce.dto.response.UserResponse;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.graduationproject.ecommerce.repository.UserRepository;
 import java.time.LocalDateTime;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 
 @Service

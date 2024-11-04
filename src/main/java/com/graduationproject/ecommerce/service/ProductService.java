@@ -40,7 +40,7 @@ public class ProductService {
         productResponse.setId(p.getId());
         productResponse.setProductName(p.getProductName());
         productResponse.setProductPrice(p.getProductPrice());
-        productResponse.setProductQuantity(p.getProductQuantity());
+        productResponse.setProductQuantity(p.getStockQuantity());
         productResponse.setStoreId(p.getStore().getId());
 
         return productResponse;
@@ -69,7 +69,7 @@ public class ProductService {
             pr.setId(product.getId());
             pr.setProductName(product.getProductName());
             pr.setProductPrice(product.getProductPrice());
-            pr.setProductQuantity(product.getProductQuantity());
+            pr.setProductQuantity(product.getStockQuantity());
             pr.setStoreId(product.getStore().getId());
             
             productResponses.add(
@@ -85,7 +85,7 @@ public class ProductService {
                 .id(productUpdateRequest.getId())
                 .productName(productUpdateRequest.getProductName())
                 .productPrice(productUpdateRequest.getProductPrice())
-                .productQuantity(productUpdateRequest.getProductQuantity())
+                .stockQuantity(productUpdateRequest.getStockQuantity())
                 .build();
         product.setProductUpdateDate(LocalDateTime.now());
         productRepository.save(product);
