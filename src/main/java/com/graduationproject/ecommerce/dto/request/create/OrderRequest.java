@@ -1,4 +1,4 @@
-package com.graduationproject.ecommerce.dto.request;
+package com.graduationproject.ecommerce.dto.request.create;
 
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -14,5 +14,5 @@ import lombok.Setter;
 @Builder
 public class OrderRequest {
     private Long productId;
-    private int quantity;
+    private int productQuantity;
 }

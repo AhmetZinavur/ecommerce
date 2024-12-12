@@ -23,8 +23,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "tbl_auth")
-@Embeddable
+@Table(name = "auths")
 public class Auth {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -27,7 +27,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "tbl_store")
+@Table(name = "stores")
 public class Store {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,8 +35,8 @@ public class Store {
     private String storeName;
     private String taxNumber;
     private String address;
-    private LocalDateTime storeCreationDate;
-    private LocalDateTime storeUpdateDate;
+    private LocalDateTime createAt;
+    private LocalDateTime updateAt;
 
     @OneToOne
     private User user;

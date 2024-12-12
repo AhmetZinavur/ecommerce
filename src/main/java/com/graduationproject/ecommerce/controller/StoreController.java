@@ -1,7 +1,7 @@
 package com.graduationproject.ecommerce.controller;
 
-import com.graduationproject.ecommerce.dto.request.build.AddNewProductRequest;
-import com.graduationproject.ecommerce.dto.request.build.BuildStoreRequest;
+import com.graduationproject.ecommerce.dto.request.create.AddNewProductRequest;
+import com.graduationproject.ecommerce.dto.request.create.BuildStoreRequest;
 import com.graduationproject.ecommerce.dto.request.update.ProductUpdateRequest;
 import com.graduationproject.ecommerce.dto.request.update.UpdateOrderStatusRequest;
 import com.graduationproject.ecommerce.dto.response.ProductResponse;

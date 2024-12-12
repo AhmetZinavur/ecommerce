@@ -22,7 +22,12 @@ public enum CustomeException {
 
     NO_PRODUCT_FOUND_TO_DISPLAY_EXCEPTION(5001,"No products found to display"),
     NO_SUCH_PRODUCT_EXIST_EXCEPTION(5002,"No Such product exist"),
-    PRODUCT_DOES_NOT_BELONG_TO_YOUR_STORE_EXCEPTION(5003, "This product does not belong to your store");
+    PRODUCT_DOES_NOT_BELONG_TO_YOUR_STORE_EXCEPTION(5003, "This product does not belong to your store"),
+    PRODUCT_ALREADY_EXIST_EXCEPTION(5004, "You have entered product name already exists"),
+    
+    ORDER_NOT_FOUND_EXCEPTION(6001,"Order not found"),
+    APPROVE_OR_REJECT_EXCEPTION(6002,"Choose APPROVED Or REJECTED"),
+    NOT_ENOUGH_STOCK_EXCEPTION(6003,"Please reduce the quantity of the product you want.");
     
     private final int statusCode;
     private final String message;

@@ -26,7 +26,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "tbl_user")
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,8 +36,8 @@ public class User {
     private String email;
     private String userName;
     private String password;
-    private LocalDateTime accountCreationDate;
-    private LocalDateTime accountUpdateDate;
+    private LocalDateTime createAt;
+    private LocalDateTime updateAt;
 
     @OneToOne(mappedBy = "user" ,cascade = CascadeType.ALL)
     private Auth auth;

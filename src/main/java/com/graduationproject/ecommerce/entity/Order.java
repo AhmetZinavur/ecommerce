@@ -12,6 +12,7 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -24,6 +25,7 @@ import jakarta.persistence.Table;
 import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -34,25 +36,20 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "tbl_order")
+@Table(name = "orders")
+@Data
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Double orderPrice;
-    private LocalDateTime orderDateTime;
+    private LocalDateTime createAt;
     
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
-   
-    @ManyToMany
-    @JoinTable(
-        name = "order_product",
-        joinColumns = @JoinColumn(name = "order_id"),
-        inverseJoinColumns = @JoinColumn(name = "product_id")
-    )
-    @JsonManagedReference
-    private Set<Product> products;
+    
+    @OneToMany(mappedBy = "order")
+    private Set<OrderDetail> orderDetails;
     
     @ManyToOne
     @JsonBackReference

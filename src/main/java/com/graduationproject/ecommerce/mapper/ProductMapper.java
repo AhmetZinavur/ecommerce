@@ -1,6 +1,7 @@
 package com.graduationproject.ecommerce.mapper;
 
-import com.graduationproject.ecommerce.dto.request.build.AddNewProductRequest;
+import com.graduationproject.ecommerce.dto.request.create.AddNewProductRequest;
+import com.graduationproject.ecommerce.dto.request.update.ProductUpdateRequest;
 import com.graduationproject.ecommerce.dto.response.ProductResponse;
 import com.graduationproject.ecommerce.entity.Product;
 import org.mapstruct.Mapper;
@@ -14,4 +15,6 @@ public interface ProductMapper {
     Product addNewProductRequestToProduct(AddNewProductRequest addNewProductRequest);
     
     ProductResponse productToProductResponse(Product product);
+    
+    ProductUpdateRequest productToProductUpdateRequest(ProductUpdateRequest productUpdateRequest);
 }

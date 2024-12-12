@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import com.graduationproject.ecommerce.repository.AuthRepository;
 import com.graduationproject.ecommerce.util.JWTManager;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -25,6 +26,7 @@ public class AuthService {
     private final UserService userService;
     private final JWTManager jWTManager;
 
+    @Transactional
     public void saveAdmin(AdminRegisterRequest adminRegisterRequest) {
         if(userService.isUserExist(adminRegisterRequest.getUserName(), adminRegisterRequest.getEmail())) {
             throw new SuchUserAlreadyExistsException(CustomeException.SUCH_USER_ALREADY_EXISTS_EXCEPTION);
@@ -38,6 +40,7 @@ public class AuthService {
         );
     }
     
+    @Transactional
     public void saveCustomer(CustomerRegisterRequest customerRegisterRequest) {
         if(userService.isUserExist(customerRegisterRequest.getUserName(), customerRegisterRequest.getEmail())) {
             throw new SuchUserAlreadyExistsException(CustomeException.SUCH_USER_ALREADY_EXISTS_EXCEPTION);
@@ -51,6 +54,7 @@ public class AuthService {
         );
     }
     
+    @Transactional
     public void saveStoreOwner(StoreOwnerRegisterRequest storeOwnerRegisterRequest) {
         if(userService.isUserExist(storeOwnerRegisterRequest.getUserName(), storeOwnerRegisterRequest.getEmail())) {
             throw new SuchUserAlreadyExistsException(CustomeException.SUCH_USER_ALREADY_EXISTS_EXCEPTION);

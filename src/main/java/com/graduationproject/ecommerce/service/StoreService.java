@@ -1,7 +1,7 @@
 package com.graduationproject.ecommerce.service;
 
-import com.graduationproject.ecommerce.dto.request.build.AddNewProductRequest;
-import com.graduationproject.ecommerce.dto.request.build.BuildStoreRequest;
+import com.graduationproject.ecommerce.dto.request.create.AddNewProductRequest;
+import com.graduationproject.ecommerce.dto.request.create.BuildStoreRequest;
 import com.graduationproject.ecommerce.dto.request.update.ProductUpdateRequest;
 import com.graduationproject.ecommerce.dto.request.update.UpdateOrderStatusRequest;
 import com.graduationproject.ecommerce.dto.request.update.UpdateStoreRequest;
@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import com.graduationproject.ecommerce.repository.StoreRepository;
 import com.graduationproject.ecommerce.util.JWTManager;
+import jakarta.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -32,9 +33,11 @@ public class StoreService {
 
     private final StoreRepository storeRepository;
     private final ProductService productService;
+    private final OrderService orderService;
     private final UserService userService;
     private final JWTManager jWTManager;
 
+    @Transactional
     public void buildStoreForStoreOwner(String token, BuildStoreRequest buildStoreRequest) {
 
         Long id = jWTManager.validToken(token).orElseThrow(() -> new InvalidTokenException(CustomeException.INVALID_TOKEN_EXCEPTION));
@@ -47,7 +50,7 @@ public class StoreService {
 
         Store store = StoreMapper.INSTANCE.buildStoreRequestToStore(buildStoreRequest);
 
-        store.setStoreCreationDate(LocalDateTime.now());
+        store.setCreateAt(LocalDateTime.now());
 
         store.setUser(User.builder()
                 .id(response.getId())
@@ -56,6 +59,7 @@ public class StoreService {
         storeRepository.save(store);
     }
 
+    @Transactional
     public void buildStoreForAdmin(String token, Long storeOwnerId, BuildStoreRequest buildStoreRequest) {
 
         jWTManager.validToken(token).orElseThrow(() -> new InvalidTokenException(CustomeException.INVALID_TOKEN_EXCEPTION));
@@ -68,7 +72,7 @@ public class StoreService {
 
         Store store = StoreMapper.INSTANCE.buildStoreRequestToStore(buildStoreRequest);
 
-        store.setStoreCreationDate(LocalDateTime.now());
+        store.setCreateAt(LocalDateTime.now());
 
         store.setUser(User.builder()
                 .id(response.getId())
@@ -77,6 +81,7 @@ public class StoreService {
         storeRepository.save(store);
     }
 
+    @Transactional
     public void saveProduct(String token, AddNewProductRequest addNewProductRequest) {
 
         Long storeOwnerId = jWTManager.validToken(token).orElseThrow(() -> new InvalidTokenException(CustomeException.INVALID_TOKEN_EXCEPTION));
@@ -85,33 +90,35 @@ public class StoreService {
 
         productService.save(store, addNewProductRequest);
     }
-    
+
+    @Transactional
     public void deleteStore(String token, Long storeId) {
         Long storeOwnerId = jWTManager.validToken(token).orElseThrow(() -> new InvalidTokenException(CustomeException.INVALID_TOKEN_EXCEPTION));
-        
+
         Store store = storeRepository.findByUserId(storeOwnerId).orElseThrow(() -> new NoSuchStoreExistsException(CustomeException.NO_SUCH_STORE_EXISTS_EXCEPTION));
-        
-        if(Objects.equals(storeOwnerId, store.getUser().getId())) {
+
+        if (Objects.equals(storeOwnerId, store.getUser().getId())) {
             storeRepository.deleteById(storeId);
         }
-                
+
     }
-    
+
+    @Transactional
     public void updateStore(String token, UpdateStoreRequest updateStoreRequest) {
         Long storeOwnerId = jWTManager.validToken(token).orElseThrow(() -> new InvalidTokenException(CustomeException.INVALID_TOKEN_EXCEPTION));
-        
+
         Store store = storeRepository.findByUserId(storeOwnerId).orElseThrow(() -> new NoSuchStoreExistsException(CustomeException.NO_SUCH_STORE_EXISTS_EXCEPTION));
-        
-        if(Objects.equals(storeOwnerId, store.getUser().getId())) {
-            
+
+        if (Objects.equals(storeOwnerId, store.getUser().getId())) {
+
             store.setId(updateStoreRequest.getId());
             store.setStoreName(updateStoreRequest.getStoreName());
             store.setTaxNumber(updateStoreRequest.getTaxNumber());
             store.setAddress(updateStoreRequest.getAddress());
-            store.setStoreUpdateDate(LocalDateTime.now());
+            store.setUpdateAt(LocalDateTime.now());
             storeRepository.save(store);
         }
-        
+
     }
 
     public ProductResponse findProductById(Long id) {
@@ -122,6 +129,7 @@ public class StoreService {
         return getMyOwnStoreProduct(token);
     }
 
+    @Transactional
     public void updateProduct(String token, ProductUpdateRequest productUpdateRequest) {
         Long storeOwnerId = jWTManager.validToken(token).orElseThrow(() -> new InvalidTokenException(CustomeException.INVALID_TOKEN_EXCEPTION));
 
@@ -134,6 +142,7 @@ public class StoreService {
         productService.update(productUpdateRequest);
     }
 
+    @Transactional
     public void deleteProduct(String token, Long id) {
         Long storeOwnerId = jWTManager.validToken(token).orElseThrow(() -> new InvalidTokenException(CustomeException.INVALID_TOKEN_EXCEPTION));
 
@@ -144,9 +153,10 @@ public class StoreService {
         }
         productService.delete(id);
     }
-    
+
+    @Transactional
     public void updateOrderStatus(String token, UpdateOrderStatusRequest updateOrderStatusRequest) {
-        
+        orderService.updateOrderStatus(token, updateOrderStatusRequest);
     }
 
     private List<ProductResponse> getMyOwnStoreProduct(String token) {

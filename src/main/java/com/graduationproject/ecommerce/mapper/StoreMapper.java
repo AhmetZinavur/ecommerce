@@ -1,6 +1,6 @@
 package com.graduationproject.ecommerce.mapper;
 
-import com.graduationproject.ecommerce.dto.request.build.BuildStoreRequest;
+import com.graduationproject.ecommerce.dto.request.create.BuildStoreRequest;
 import com.graduationproject.ecommerce.entity.Store;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;

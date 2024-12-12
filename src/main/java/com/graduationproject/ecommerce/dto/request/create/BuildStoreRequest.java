@@ -1,4 +1,4 @@
-package com.graduationproject.ecommerce.dto.request.build;
+package com.graduationproject.ecommerce.dto.request.create;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
